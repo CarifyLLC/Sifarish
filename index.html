@@ -37,6 +37,32 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+	select {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    color: #000000; /* Ensures the text is black */
+	    font-size: 13px; /* Set the desired font size */
+	}
+
+	input, select, textarea {
+	    font-family: inherit; /* Make sure the font-family is consistent */
+	    font-size: 14px; /* Ensure the font size is consistent */
+	}
+
+	select:focus {
+	    outline: none;
+	    box-shadow: none;
+	    border: 1px solid #900000; /* You can adjust the border color to match the theme */
+	}
+
+	/* Fix for iOS blue text inside select */
+	input:-webkit-autofill, 
+	textarea:-webkit-autofill, 
+	select:-webkit-autofill {
+	    -webkit-text-fill-color: #000000; /* Ensure autofill color stays black */
+	    font-size: 16px; /* Ensure font-size stays consistent */
+	}
 
         .year-container, .mileage-container {
             display: flex;
