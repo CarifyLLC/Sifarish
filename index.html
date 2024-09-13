@@ -9,9 +9,11 @@
         body {
             font-family: Arial, sans-serif;
         }
-	h2 {
-	    color: #900000;
-	}
+
+        h2 {
+            color: #900000;
+        }
+
         form {
             max-width: 600px;
             margin: 0 auto;
@@ -24,8 +26,9 @@
         label {
             display: block;
             margin-top: 10px;
-	    color: #900000;
+            color: #900000;
         }
+
         select, input[type="text"], input[type="number"], textarea {
             width: 100%;
             padding: 10px;
@@ -38,16 +41,21 @@
         .year-container, .mileage-container {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
+
         .year-container select, .mileage-container select {
             width: 48%;
         }
+
         textarea {
             height: 100px;
         }
-	#submodel, #model, #color {
-	    height: 40px; /* Adjust the height as needed */
-	}
+
+        #submodel, #model, #color {
+            height: 40px;
+        }
+
         button {
             width: 35%;
             padding: 12px;
@@ -61,52 +69,67 @@
             margin: 0px auto 0px;
             display: block;
         }
+
         button:hover {
             background-color: #6f0000;
         }
+
         button:active {
             transform: scale(0.98);
         }
-	.flex-row {
-	    display: flex;
-	    justify-content: space-between;
-	    align-items: flex-start;
-	    gap: 10px; /* This will automatically create a 10px gap between the items */
-	}
-        option {
-            height: 30px;
-            padding: 5px;
-	    color: #900000;
+
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-	.flex-row > div {
-	    flex: 1;
-	}
+        .flex-row > div {
+            flex: 1;
+            min-width: 48%;
+        }
 
-	.flex-row > div:last-child {
-	    margin-right: 0;
-	}
-	.mileage-container select, .year-container select {
-	    width: calc(50% - 15px); /* Adjust width to account for margin */
-	}
+        .flex-row > div:last-child {
+            margin-right: 0;
+        }
 
-	.mileage-container select:not(:last-child), .year-container select:not(:last-child) {
-	    margin-right: 10px; /* Adds margin between the two boxes */
-	}
-
-	textarea, input[type="text"], input[type="number"], select {
-	    box-sizing: border-box; /* Ensure padding and border are included in the element's width */
-	    padding: 10px;
-	    margin-right: 10px; /* Add some margin on the right side */
-	    width: calc(100% - 10px); /* Adjust width to account for the margin */
-	}
+        textarea, input[type="text"], input[type="number"], select {
+            box-sizing: border-box;
+            padding: 10px;
+            margin-right: 10px;
+            width: calc(100% - 10px);
+        }
 
         #submitMessage {
             display: none;
             color: #900000;
             margin-top: 10px;
-	    text-align: center; /* Centers the text */
-	    width: 100%;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media screen and (max-width: 768px) {
+            .flex-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .flex-row > div {
+                min-width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .year-container select, .mileage-container select {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -134,18 +157,18 @@
         <option value="Subaru">Subaru</option>
     </select>
 
-	<!-- Model and Submodel as flex-row -->
-	<div class="flex-row">
-	    <div>
-	        <label for="model">Model</label>
-	        <textarea id="model" name="model" placeholder="Modeli yazın" rows="2"></textarea>
-	    </div>
+    <!-- Model and Submodel as flex-row -->
+    <div class="flex-row">
+        <div>
+            <label for="model">Model</label>
+            <textarea id="model" name="model" placeholder="Modeli yazın" rows="2"></textarea>
+        </div>
 
- 	   <div>
-	        <label for="submodel">Sub-Model</label>
-	        <textarea id="submodel" name="submodel" placeholder="Sub-Modeli yazın" rows="2"></textarea>
-	    </div>
-	</div>
+        <div>
+            <label for="submodel">Sub-Model</label>
+            <textarea id="submodel" name="submodel" placeholder="Sub-Modeli yazın" rows="2"></textarea>
+        </div>
+    </div>
 
     <label for="manufacturingYear">İstehsal İli</label>
     <div class="year-container">
@@ -171,23 +194,23 @@
     </div>
 
     <!-- Mühərrik Həcmi and Yanacaq Tipi as flex-row -->
-	<div class="flex-row">
-	    <div>
-	        <label for="engineCapacity">Mühərrik Həcmi</label>
-	        <input type="number" id="engineCapacity" name="engineCapacity" placeholder="Nümunə: 2200cc" required>
-	    </div>
+    <div class="flex-row">
+        <div>
+            <label for="engineCapacity">Mühərrik Həcmi</label>
+            <input type="number" id="engineCapacity" name="engineCapacity" placeholder="Nümunə: 2200cc" required>
+        </div>
 
-	    <div>
-	        <label for="fuelType">Yanacaq Tipi</label>
-	        <select id="fuelType" name="fuelType" required>
-	            <option value="" disabled selected>Yanacaq Tipini Seçin</option>
-	            <option value="Benzin">Benzin</option>
-	            <option value="Dizel">Dizel</option>
-	            <option value="Elektrik"> Elektrik </option>
-	            <option value="Hibrid">Hibrid</option>
-	        </select>
-	    </div>
-	</div>
+        <div>
+            <label for="fuelType">Yanacaq Tipi</label>
+            <select id="fuelType" name="fuelType" required>
+                <option value="" disabled selected>Yanacaq Tipini Seçin</option>
+                <option value="Benzin">Benzin</option>
+                <option value="Dizel">Dizel</option>
+                <option value="Elektrik"> Elektrik </option>
+                <option value="Hibrid">Hibrid</option>
+            </select>
+        </div>
+    </div>
 
     <label for="mileage">Yürüş</label>
     <div class="mileage-container">
@@ -322,35 +345,35 @@
         }
     });
 
-	document.getElementById('orderForm').addEventListener('submit', function(event) {
-	    event.preventDefault(); // Prevent the form from submitting the default way
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting the default way
 
-	    var formData = new FormData(this);
-	    var xhr = new XMLHttpRequest();
-	    xhr.open('POST', this.action, true);
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', this.action, true);
 
-	    xhr.onload = function() {
-	        if (xhr.status === 200) {
-	            // Show the message
-	            var messageDiv = document.getElementById('submitMessage');
-	            messageDiv.style.display = 'block';
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Show the message
+                var messageDiv = document.getElementById('submitMessage');
+                messageDiv.style.display = 'block';
 
-	            // Hide the message after 2 seconds
-	            setTimeout(function() {
-	                messageDiv.style.display = 'none';
-	            }, 2000);
+                // Hide the message after 2 seconds
+                setTimeout(function() {
+                    messageDiv.style.display = 'none';
+                }, 2000);
 
-	            // Reset the form fields after submission
-	            document.getElementById('orderForm').reset();
+                // Reset the form fields after submission
+                document.getElementById('orderForm').reset();
 
-	            // Reset Model and Submodel fields
-	            var modelSelect = document.getElementById('model');
-	            var submodelSelect = document.getElementById('submodel');
-	        }
-	    };
+                // Reset Model and Submodel fields
+                var modelSelect = document.getElementById('model');
+                var submodelSelect = document.getElementById('submodel');
+            }
+        };
 
-	    xhr.send(formData);
-	});
+        xhr.send(formData);
+    });
 </script>
 
 </body>
