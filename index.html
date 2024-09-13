@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avtomobil Sifariş Formu</title>
+    <link rel="icon" href="https://i.imgur.com/SPsP7tU.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+	h2 {
+	    color: #900000;
+	}
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+	    color: #900000;
+        }
+        select, input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .year-container, .mileage-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .year-container select, .mileage-container select {
+            width: 48%;
+        }
+        textarea {
+            height: 100px;
+        }
+	#submodel, #model, #color {
+	    height: 40px; /* Adjust the height as needed */
+	}
+        button {
+            width: 35%;
+            padding: 12px;
+            background-color: #900000;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 0px auto 0px;
+            display: block;
+        }
+        button:hover {
+            background-color: #6f0000;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+	.flex-row {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: flex-start;
+	    gap: 10px; /* This will automatically create a 10px gap between the items */
+	}
+        option {
+            height: 30px;
+            padding: 5px;
+	    color: #900000;
+        }
+
+	.flex-row > div {
+	    flex: 1;
+	}
+
+	.flex-row > div:last-child {
+	    margin-right: 0;
+	}
+	.mileage-container select, .year-container select {
+	    width: calc(50% - 15px); /* Adjust width to account for margin */
+	}
+
+	.mileage-container select:not(:last-child), .year-container select:not(:last-child) {
+	    margin-right: 10px; /* Adds margin between the two boxes */
+	}
+
+	textarea, input[type="text"], input[type="number"], select {
+	    box-sizing: border-box; /* Ensure padding and border are included in the element's width */
+	    padding: 10px;
+	    margin-right: 10px; /* Add some margin on the right side */
+	    width: calc(100% - 10px); /* Adjust width to account for the margin */
+	}
+
+        #submitMessage {
+            display: none;
+            color: #900000;
+            margin-top: 10px;
+	    text-align: center; /* Centers the text */
+	    width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">Avtomobil Sifariş Formu</h2>
+
+<form id="orderForm" action="https://script.google.com/macros/s/AKfycbywrdEbTNZMKq53zBtdMs6gHYfFY_JU4h109Ob2_FvQUceZZyj6MSlArDb6QO78e5pzhg/exec" method="post">
+    <label for="brand">Marka</label>
+    <select id="brand" name="brand" required>
+        <option value="" disabled selected>Brendi Seçin</option>
+        <option value="Hyundai">Hyundai</option>
+        <option value="Kia">Kia</option>
+        <option value="BMW">BMW</option>
+        <option value="Mercedes-Benz">Mercedes-Benz</option>
+        <option value="Genesis">Genesis</option>
+        <option value="Chevrolet">Chevrolet</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Nissan">Nissan</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Audi">Audi</option>
+        <option value="Range Rover">Range Rover</option>
+        <option value="Land Rover">Land Rover</option>
+        <option value="Lincoln">Lincoln</option>
+        <option value="Subaru">Subaru</option>
+    </select>
+
+	<!-- Model and Submodel as flex-row -->
+	<div class="flex-row">
+	    <div>
+	        <label for="model">Model</label>
+	        <textarea id="model" name="model" placeholder="Modeli yazın" rows="2"></textarea>
+	    </div>
+
+ 	   <div>
+	        <label for="submodel">Sub-Model</label>
+	        <textarea id="submodel" name="submodel" placeholder="Sub-Modeli yazın" rows="2"></textarea>
+	    </div>
+	</div>
+
+    <label for="manufacturingYear">İstehsal İli</label>
+    <div class="year-container">
+        <select id="manufacturingYearFrom" name="manufacturingYearFrom" required>
+            <option value="" disabled selected>İldən</option>
+            <script>
+                const currentYear = new Date().getFullYear();
+                const startYear = currentYear - 10;
+                for (let year = currentYear; year >= startYear; year--) {
+                    document.write('<option value="' + year + '">' + year + '</option>');
+                }
+            </script>
+        </select>
+
+        <select id="manufacturingYearTo" name="manufacturingYearTo" required>
+            <option value="" disabled selected>İlə</option>
+            <script>
+                for (let year = currentYear; year >= startYear; year--) {
+                    document.write('<option value="' + year + '">' + year + '</option>');
+                }
+            </script>
+        </select>
+    </div>
+
+    <!-- Mühərrik Həcmi and Yanacaq Tipi as flex-row -->
+	<div class="flex-row">
+	    <div>
+	        <label for="engineCapacity">Mühərrik Həcmi</label>
+	        <input type="number" id="engineCapacity" name="engineCapacity" placeholder="Nümunə: 2200cc" required>
+	    </div>
+
+	    <div>
+	        <label for="fuelType">Yanacaq Tipi</label>
+	        <select id="fuelType" name="fuelType" required>
+	            <option value="" disabled selected>Yanacaq Tipini Seçin</option>
+	            <option value="Benzin">Benzin</option>
+	            <option value="Dizel">Dizel</option>
+	            <option value="Elektrik"> Elektrik </option>
+	            <option value="Hibrid">Hibrid</option>
+	        </select>
+	    </div>
+	</div>
+
+    <label for="mileage">Yürüş</label>
+    <div class="mileage-container">
+        <select id="mileageFrom" name="mileageFrom" required>
+            <option value="" disabled selected>Km-dən</option>
+            <script>
+                for (let mileage = 0; mileage <= 300000; mileage += 10000) {
+                    document.write('<option value="' + mileage + '">' + mileage + ' km</option>');
+                }
+            </script>
+        </select>
+
+        <select id="mileageTo" name="mileageTo" required>
+            <option value="" disabled selected>Km-ə</option>
+            <script>
+                for (let mileage = 0; mileage <= 300000; mileage += 10000) {
+                    document.write('<option value="' + mileage + '">' + mileage + ' km</option>');
+                }
+            </script>
+        </select>
+    </div>
+
+    <!-- New row with Rəng, Dəyişən Detal Sayı, Rənglənən Detal Sayı -->
+    <div class="flex-row">
+        <div>
+            <label for="color">Rəng</label>
+            <textarea id="color" name="color" placeholder="Ağ, Boz, Qara..." rows="2"></textarea>
+        </div>
+
+        <div>
+            <label for="changedParts">Dəyişən Detal</label>
+            <select id="changedParts" name="changedParts" required>
+                <option value="" disabled selected>Seçin</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="Fərq Etməz">Fərq Etməz</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="paintedParts">Rənglənən Detal</label>
+            <select id="paintedParts" name="paintedParts" required>
+                <option value="" disabled selected>Seçin</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="Fərq Etməz">Fərq Etməz</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Alıcı and Əlavə Notlar -->
+    <label for="buyer">Alıcı</label>
+    <input type="text" id="buyer" name="buyer" placeholder="Alıcının Adını Yazın" required>
+
+    <label for="additionalNotes">Əlavə Notlar</label>
+    <textarea id="additionalNotes" name="additionalNotes" placeholder="Əlavə Opsiya və Notları Qeyd Edin...."></textarea>
+
+    <div id="submitMessage">Məlumatlar Uğurla Göndərildi!</div>
+    <button type="submit">Sifarişi Göndər</button>
+</form>
+
+<script>
+    document.getElementById('brand').addEventListener('change', function() {
+        const brand = this.value;
+        const modelSelect = document.getElementById('model');
+        modelSelect.innerHTML = ''; // Clear the existing options
+
+        const models = {
+            'Hyundai': ['Avante (Elantra)', 'Sonata', 'Tucson', 'Santa Fe', 'Palisade', 'Kona', 'Nexo (Hydrogen)', 'Ioniq 5 (Electric)', 'Ioniq 6 (Electric)', 'Venue', 'Grandeur (Azera)'],
+            'Kia': ['K3 (Forte)', 'K5 (Optima)', 'K7 (Cadenza)', 'K8', 'K9 (K900)', 'Sportage', 'Sorento', 'Carnival (Sedona)', 'Seltos', 'Stinger', 'EV6 (Electric)', 'Niro (Hybrid/Electric)', 'Mohave (Borrego)'],
+            'BMW': ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', '8 Series', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'Z4', 'i3 (Electric)', 'i4 (Electric)', 'i8 (Hybrid)', 'iX (Electric)', 'M2', 'M3', 'M4', 'M5', 'M6', 'M8', 'X5 M', 'X6 M'],
+            'Mercedes-Benz': ['A-Class', 'B-Class', 'C-Class', 'E-Class', 'S-Class', 'CLA', 'CLS', 'GLA', 'GLB', 'GLC', 'GLE', 'GLS', 'G-Class', 'EQC (Electric)', 'EQS (Electric)', 'AMG GT', 'Maybach S-Class'],
+            'Genesis': ['G70', 'G80', 'G90', 'GV70', 'GV80', 'Electrified G80 (Electric)', 'GV60 (Electric)'],
+            'Chevrolet': ['Spark', 'Malibu', 'Impala', 'Trax', 'Trailblazer', 'Equinox', 'Traverse', 'Colorado', 'Tahoe', 'Bolt EV (Electric)', 'Camaro', 'Corvette'],
+            'Samsung': ['SM3 Z.E. (Electric)', 'SM6', 'QM3 (Renault Captur)', 'QM6', 'XM3'],
+            'Nissan': ['Altima', 'Maxima', 'Sentra', 'Rogue (X-Trail)', 'Murano', 'Pathfinder', 'Leaf (Electric)', 'Qashqai', 'GT-R', 'Z'],
+            'Toyota': ['Camry', 'Corolla', 'Prius', 'Avalon', 'RAV4', 'Land Cruiser', '4Runner', 'Highlander', 'C-HR', 'Sienna', 'Tacoma', 'Tundra', 'Supra', '86'],
+            'Audi': ['A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q2', 'Q3', 'Q5', 'Q7', 'Q8', 'e-Tron (Electric)', 'e-Tron GT (Electric)', 'RS5', 'RS7', 'RS Q8', 'R8'],
+            'Range Rover': ['Range Rover', 'Range Rover Sport', 'Range Rover Evoque', 'Range Rover Velar', 'Range Rover Autobiography'],
+            'Land Rover': ['Defender', 'Discovery', 'Discovery Sport'],
+            'Lincoln': ['MKZ', 'Continental', 'Nautilus', 'Corsair', 'Aviator', 'Navigator'],
+            'Subaru': ['Impreza', 'Legacy', 'Outback', 'Forester', 'WRX', 'Ascent', 'BRZ', 'XV (Crosstrek)']
+        };
+
+        if (models[brand]) {
+            models[brand].forEach(function(model) {
+                const option = document.createElement('option');
+                option.value = model;
+                option.text = model;
+                modelSelect.add(option);
+            });
+        }
+    });
+
+    document.getElementById('model').addEventListener('change', function() {
+        const model = this.value;
+        const submodelSelect = document.getElementById('submodel');
+        submodelSelect.innerHTML = ''; // Clear the existing options
+
+        const submodels = {
+            '5 Series': ['520d', '520i', '528d', '530i', '530e', '540i', 'M550i'],
+            '3 Series': ['318i', '320d', '320i', '330i', '330e', 'M340i'],
+            'A-Class': ['A180', 'A200', 'A250', 'A45 AMG'],
+            'C-Class': ['C180', 'C200', 'C220d', 'C300', 'C43 AMG', 'C63 AMG'],
+            'E-Class': ['E200', 'E220d', 'E300', 'E350', 'E450', 'E63 AMG'],
+            'S-Class': ['S500', 'S580', 'S63 AMG', 'S680', 'Maybach S650'],
+            'Sonata': ['Sonata Hybrid', 'Sonata Turbo', 'Sonata N-Line'],
+            'K5 (Optima)': ['K5', 'K5 Hybrid', 'K5 GT', 'K5 Turbo'],
+            'Tucson': ['Tucson', 'Tucson Hybrid', 'Tucson N-Line']
+        };
+
+        if (submodels[model]) {
+            submodels[model].forEach(function(submodel) {
+                const option = document.createElement('option');
+                option.value = submodel;
+                option.text = submodel;
+                submodelSelect.add(option);
+            });
+        } else {
+            const defaultOption = document.createElement('option');
+            defaultOption.value = model;
+            defaultOption.text = model;
+            submodelSelect.add(defaultOption);
+        }
+    });
+
+	document.getElementById('orderForm').addEventListener('submit', function(event) {
+	    event.preventDefault(); // Prevent the form from submitting the default way
+
+	    var formData = new FormData(this);
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('POST', this.action, true);
+
+	    xhr.onload = function() {
+	        if (xhr.status === 200) {
+	            // Show the message
+	            var messageDiv = document.getElementById('submitMessage');
+	            messageDiv.style.display = 'block';
+
+	            // Hide the message after 2 seconds
+	            setTimeout(function() {
+	                messageDiv.style.display = 'none';
+	            }, 2000);
+
+	            // Reset the form fields after submission
+	            document.getElementById('orderForm').reset();
+
+	            // Reset Model and Submodel fields
+	            var modelSelect = document.getElementById('model');
+	            var submodelSelect = document.getElementById('submodel');
+	        }
+	    };
+
+	    xhr.send(formData);
+	});
+</script>
+
+</body>
+</html>
